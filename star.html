@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Map Maker pro</title>
+<style>
+  canvas {
+    border: 1px solid black;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+  }
+</style>
+</head>
+<body>
+
+    <canvas id="starCanvas" width="121" height="121"></canvas>
+    <script>
+        function drawStar(context, x, y, outerRadius, innerRadius, points, angleDeg, stroke, fill, lineWidth)
+		{
+            let rot = - Math.PI / 2 + angleDeg * Math.PI / 180;
+            let xCenter = x;
+            let yCenter = y;
+            let step = Math.PI / points;
+
+            context.beginPath();
+			
+			// Premier sommet
+			xCenter = x + Math.cos(rot) * outerRadius;
+			yCenter = y + Math.sin(rot) * outerRadius;
+            context.moveTo(xCenter, yCenter);
+			
+            for (let i = 0; i < points; i++)
+			{
+				rot += step;
+                xCenter = x + Math.cos(rot) * innerRadius;
+                yCenter = y + Math.sin(rot) * innerRadius;
+                context.lineTo(xCenter, yCenter);
+                
+				rot += step;
+                xCenter = x + Math.cos(rot) * outerRadius;
+                yCenter = y + Math.sin(rot) * outerRadius;
+                context.lineTo(xCenter, yCenter);
+            }
+            //context.lineTo(xCenter, yCenter - outerRadius);
+            context.closePath();
+            context.lineWidth = lineWidth;
+            context.strokeStyle = stroke;
+            context.stroke();
+            context.fillStyle = fill;
+            context.fill();
+        }
+		
+		function drawGrid(context, size, color)
+		{
+			let width = context.canvas.clientWidth;
+			let height = context.canvas.clientHeight;
+			
+			context.beginPath();
+			context.strokeStyle = color;
+			context.lineWidth = 1;
+			
+			for (var x = 0; x <= width; x += size)
+			{
+				context.moveTo(x + 0.5, 0)
+                context.lineTo(x + 0.5, height);
+			}
+			
+			for (var y = 0; y <= height; y += size)
+			{
+				context.moveTo(0, y + 0.5)
+                context.lineTo(width, y + 0.5);
+			}
+			
+			context.stroke();
+		}
+
+        window.onload = function()
+		{
+            let canvas = document.getElementById("starCanvas");
+            let context = canvas.getContext("2d");
+
+            // Dessiner une étoile à 5 côtés au centre du canvas
+            
+			      drawGrid(context, 1, '#1F1F1F');
+			    drawGrid(context, 2, '#DFDFDF');
+			    //
+          drawStar(context, 60.5, 60.5, 30/((6/2)**(1/2)), 45, 6, 0, '#3F3F3F', '#BFBFBF', 4);
+			    //drawStar(context, 60.5, 60.5, 30/((6/2)**(1/2)), 30, 6, 0, '#000000', '#FFFFFF', 1);
+			    //drawStar(context, 60.5, 60.5, 30/((6/2)**(1/2)), 30, 6, 45, '#000000', '#FFFFFF', 1);
+			    //drawStar(context, 60.5, 60.5, 30/((6/2)**(1/2)), 30, 6, 90, '#000000', '#FFFFFF', 1);
+			    //drawStar(context, 60.5, 60.5, 30/((6/2)**(1/2)), 30, 6, 135, '#000000', '#FFFFFF', 1);
+			    //
+			    drawStar(context, 60.5, 60.5, 25/((5/1)**(1/1.5)), 37.5, 5, 0, '#BFBFBF', '#3F3F3F', 3);
+			    //drawStar(context, 60.5, 60.5, 25/((5/1)**(1/1.5)), 25, 5, 0, '#FFFFFF', '#000000', 2);
+			    //drawStar(context, 60.5, 60.5, 25/((5/1)**(1/1.5)), 25, 5, 90, '#FFFFFF', '#000000', 2);
+			    //drawStar(context, 60.5, 60.5, 25/((5/1)**(1/1.5)), 25, 5, 180, '#FFFFFF', '#000000', 2);
+			    //drawStar(context, 60.5, 60.5, 25/((5/1)**(1/1.5)), 25, 5, 270, '#FFFFFF', '#000000', 2);
+			    //
+			    drawStar(context, 60.5, 60.5, 20/((4/2)**(1/2)), 30, 4, 0, '#3F3F3F', '#BFBFBF', 2);
+			    //drawStar(context, 60.5, 60.5, 20/((4/2)**(1/2)), 20, 4, 0, '#000000', '#FFFFFF', 3);
+			    //drawStar(context, 60.5, 60.5, 20/((4/2)**(1/2)), 20, 4, 22.5, '#000000', '#FFFFFF', 3);
+			    //drawStar(context, 60.5, 60.5, 20/((4/2)**(1/2)), 20, 4, 45, '#000000', '#FFFFFF', 3);
+			    //drawStar(context, 60.5, 60.5, 20/((4/2)**(1/2)), 20, 4, 67.5, '#000000', '#FFFFFF', 3);
+			    //
+			    drawStar(context, 60.5, 60.5, 15/((3/1.5)**(1/1)), 22.5, 3, 0, '#BFBFBF', '#3F3F3F', 1);
+          //drawStar(context, 60.5, 60.5, 15/((3/1.5)**(1/1)), 15, 3, 0, '#FFFFFF', '#000000', 4);
+          //drawStar(context, 60.5, 60.5, 15/((3/1.5)**(1/1)), 15, 3, 90, '#FFFFFF', '#000000', 4);
+          //drawStar(context, 60.5, 60.5, 15/((3/1.5)**(1/1)), 15, 3, 180, '#FFFFFF', '#000000', 4);
+          //drawStar(context, 60.5, 60.5, 15/((3/1.5)**(1/1)), 15, 3, 270, '#FFFFFF', '#000000', 4);
+          //
+          drawStar(context, 60.5, 60.5, 60/((7/(5/3))**(1/1.5)), 60, 7, 288, '#3F3F3F', '#BFBFBF', 3);
+          drawStar(context, 60.5, 60.5, 60/((6/2)**(1/2)), 60, 6, 216, '#3F3F3F', '#BFBFBF', 4);
+          drawStar(context, 60.5, 60.5, 60/((5/1)**(1/1.5)), 60, 5, 144, '#3F3F3F', '#BFBFBF', 5);
+          drawStar(context, 60.5, 60.5, 60/((4/2)**(1/2)), 60, 4, 72, '#3F3F3F', '#BFBFBF', 6);
+          drawStar(context, 60.5, 60.5, 60/((3/1.5)**(1/1)), 60, 3, 0, '#3F3F3F', '#BFBFBF', 7);
+          //
+          drawStar(context, 60.5, 60.5, 48/((7/(5/3))**(1/1.5)), 48, 7, 288, '#3F3F3F', '#BFBFBF', 3);
+          drawStar(context, 60.5, 60.5, 48/((6/2)**(1/2)), 48, 6, 216, '#3F3F3F', '#BFBFBF', 4);
+          drawStar(context, 60.5, 60.5, 48/((5/1)**(1/1.5)), 48, 5, 144, '#3F3F3F', '#BFBFBF', 5);
+          drawStar(context, 60.5, 60.5, 48/((4/2)**(1/2)), 48, 4, 72, '#3F3F3F', '#BFBFBF', 6);
+          //drawStar(context, 60.5, 60.5, 48/((3/1.5)**(1/1)), 48, 3, 0, '#3F3F3F', '#BFBFBF', 7);
+          //
+          drawStar(context, 60.5, 60.5, 36/((7/(5/3))**(1/1.5)), 36, 7, 288, '#3F3F3F', '#BFBFBF', 3);
+          drawStar(context, 60.5, 60.5, 36/((6/2)**(1/2)), 36, 6, 216, '#3F3F3F', '#BFBFBF', 4);
+          drawStar(context, 60.5, 60.5, 36/((5/1)**(1/1.5)), 36, 5, 144, '#3F3F3F', '#BFBFBF', 5);
+          //drawStar(context, 60.5, 60.5, 36/((4/2)**(1/2)), 36, 4, 72, '#3F3F3F', '#BFBFBF', 6);
+          //drawStar(context, 60.5, 60.5, 36/((3/1.5)**(1/1)), 36, 3, 0, '#3F3F3F', '#BFBFBF', 7);
+          //
+          drawStar(context, 60.5, 60.5, 24/((7/(5/3))**(1/1.5)), 24, 7, 288, '#3F3F3F', '#BFBFBF', 3);
+          drawStar(context, 60.5, 60.5, 24/((6/2)**(1/2)), 24, 6, 216, '#3F3F3F', '#BFBFBF', 4);
+          //drawStar(context, 60.5, 60.5, 24/((5/1)**(1/1.5)), 24, 5, 144, '#3F3F3F', '#BFBFBF', 5);
+          //drawStar(context, 60.5, 60.5, 24/((4/2)**(1/2)), 24, 4, 72, '#3F3F3F', '#BFBFBF', 6);
+          //drawStar(context, 60.5, 60.5, 24/((3/1.5)**(1/1)), 24, 3, 0, '#3F3F3F', '#BFBFBF', 7);
+          //
+          drawStar(context, 60.5, 60.5, 12/((7/(5/3))**(1/1.5)), 12, 7, 288, '#3F3F3F', '#BFBFBF', 3);
+          //drawStar(context, 60.5, 60.5, 12/((6/2)**(1/2)), 12, 6, 216, '#3F3F3F', '#BFBFBF', 4);
+          //drawStar(context, 60.5, 60.5, 12/((5/1)**(1/1.5)), 12, 5, 144, '#3F3F3F', '#BFBFBF', 5);
+          //drawStar(context, 60.5, 60.5, 12/((4/2)**(1/2)), 12, 4, 72, '#3F3F3F', '#BFBFBF', 6);
+          //drawStar(context, 60.5, 60.5, 12/((3/1.5)**(1/1)), 12, 3, 0, '#3F3F3F', '#BFBFBF', 7);
+          //REALLY THANKS FOR THIS CODING FROM A FRIEND
+        };
+    </script>
+</body>
+</html>
