@@ -1,0 +1,5 @@
+import math
+def simplex(dimensions,points):
+  k=dimension
+  n=points+k-1
+  return factorial(n)/(factorial(k)*factorial(n-k))
